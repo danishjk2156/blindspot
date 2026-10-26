@@ -18,15 +18,15 @@ export function CodePane({ code, language, result, onCodeChange, onLanguageChang
   const reviewing = result !== null;
 
   return (
-    <section className="flex flex-col rounded-2xl border border-white bg-white/90 shadow-lg shadow-indigo-100/50 backdrop-blur">
-      <div className="flex items-center justify-between border-b border-slate-200 px-4 py-2">
-        <h2 className="font-semibold">Code</h2>
+    <section className="flex flex-col rounded-3xl border border-white/10 bg-white/[0.04] shadow-2xl shadow-black/30 backdrop-blur">
+      <div className="flex items-center justify-between border-b border-white/10 px-5 py-3">
+        <h2 className="text-xs font-bold uppercase tracking-widest text-white/60">Code</h2>
         <div className="flex items-center gap-2">
           <select
             value={language}
             disabled={reviewing}
             onChange={(e) => onLanguageChange(e.target.value as Language)}
-            className="rounded border border-slate-300 bg-white px-2 py-1 text-sm disabled:opacity-50"
+            className="rounded-full border border-white/25 bg-[#0d0b2e] px-3 py-1 text-xs font-semibold text-white/90 disabled:opacity-40"
             aria-label="Language"
           >
             {LANGUAGES.map((l) => (
@@ -36,14 +36,17 @@ export function CodePane({ code, language, result, onCodeChange, onLanguageChang
             ))}
           </select>
           {reviewing && (
-            <button onClick={onEdit} className="rounded border border-slate-300 px-2 py-1 text-sm hover:bg-slate-100">
+            <button
+              onClick={onEdit}
+              className="rounded-full border border-white/25 px-3 py-1 text-xs font-semibold text-white/90 hover:border-white hover:bg-white/10"
+            >
               Edit code
             </button>
           )}
         </div>
       </div>
       {reviewing ? (
-        <div className="py-2 font-mono text-sm">
+        <div className="py-3 font-mono text-sm">
           {lines.map((text, i) => (
             <CodeLine
               key={i}
@@ -58,7 +61,7 @@ export function CodePane({ code, language, result, onCodeChange, onLanguageChang
           onChange={(e) => onCodeChange(e.target.value)}
           spellCheck={false}
           placeholder="Paste your code here (150 lines max)…"
-          className="min-h-80 flex-1 resize-y rounded-b-lg p-4 font-mono text-sm outline-none"
+          className="min-h-80 flex-1 resize-y rounded-b-3xl bg-transparent p-5 font-mono text-sm text-slate-100 caret-white outline-none placeholder:text-white/30"
         />
       )}
     </section>

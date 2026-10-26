@@ -12,31 +12,34 @@ export function Header({ onSample }: { onSample: (i: number) => void }) {
     .toUpperCase();
 
   return (
-    <header className="sticky top-0 z-20 border-b border-white/60 bg-white/70 backdrop-blur-xl">
+    <header className="sticky top-0 z-20 border-b border-white/10 bg-[#07061f]/70 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-3 md:px-6">
-        <Logo />
-        <div className="flex flex-wrap items-center gap-3">
-          <div className="flex items-center gap-1.5 text-sm">
-            <span className="hidden text-slate-500 sm:inline">Try a sample</span>
+        <Logo light />
+        <div className="flex flex-wrap items-center gap-4">
+          <div className="flex items-center gap-2 text-sm">
+            <span className="hidden text-xs font-semibold uppercase tracking-widest text-white/40 sm:inline">Samples</span>
             {samples.map((s, i) => (
               <button
                 key={s.name}
                 onClick={() => onSample(i)}
-                className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-700 shadow-sm transition hover:border-indigo-300 hover:text-indigo-700"
+                className="rounded-full border border-white/25 px-3.5 py-1.5 text-xs font-semibold text-white/85 transition hover:border-white hover:bg-white/10"
               >
                 {s.name}
               </button>
             ))}
           </div>
-          <div className="flex items-center gap-2 border-l border-slate-200 pl-3">
+          <div className="flex items-center gap-2.5 border-l border-white/15 pl-4">
             <span
               className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-indigo-500 to-pink-500 text-xs font-bold text-white"
               title={user?.email}
             >
               {initials}
             </span>
-            <span className="hidden text-sm font-medium text-slate-700 sm:inline">{user?.name}</span>
-            <button onClick={logOut} className="rounded-lg px-2 py-1 text-xs font-semibold text-slate-500 hover:bg-slate-100 hover:text-slate-900">
+            <span className="hidden text-sm font-medium text-white/85 sm:inline">{user?.name}</span>
+            <button
+              onClick={logOut}
+              className="rounded-full border border-white/25 px-3 py-1 text-xs font-semibold text-white/85 transition hover:border-white hover:bg-white/10"
+            >
               Log out
             </button>
           </div>
