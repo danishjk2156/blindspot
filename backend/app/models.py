@@ -39,7 +39,7 @@ class AnalyzeResponse(BaseModel):
     cached: bool = False
 
 
-# --- Gemini structured-output schema ---
+# --- Grader (LLM) JSON schema ---
 
 class BlockGrade(BaseModel):
     block_id: int
@@ -57,4 +57,4 @@ class UserError(Exception):
 
 
 class GraderBusy(Exception):
-    """Gemini failed after retry (maps to HTTP 503)."""
+    """The grader (Groq) failed after retries (maps to HTTP 503)."""

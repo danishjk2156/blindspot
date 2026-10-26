@@ -1,5 +1,7 @@
 # Blindspot — Implementation Plan
 
+> **Update:** the grader now runs on **Groq's free tier** (`openai/gpt-oss-120b`, key in `GROQ_API_KEY`) through a plain HTTPS call, not Gemini / `google-genai`. Wherever this original plan says Gemini, read Groq. The rest of the design (segmenter, verifier, mapper, cache) is unchanged. See `README.md` for the current architecture.
+
 > Explain your code out loud. Blindspot shows you, line by line, the parts you didn't really understand.
 
 ---

@@ -88,4 +88,4 @@ Tips: record at 1080p with the browser zoomed to about 110% so the code is reada
 - **Is the model trustworthy?** Every quote is fuzzy-matched against the transcript, and a made-up quote downgrades the block to "missing". The coverage score is calculated in Python.
 - **Is login real?** No. It's a demo: accounts live only in the browser. Say so if asked.
 - **How accurate is it?** Quote your own calibration number from `calibration/report.md`, and say how many cases it's based on.
-- **Why Groq and not Gemini?** Fast, free, and structured JSON output. The grader is one file, so swapping the model is easy.
+- **Which model grades it?** Groq's free tier (`openai/gpt-oss-120b`): fast, free and JSON output. The grader is one file, so swapping the model is easy.

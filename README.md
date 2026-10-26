@@ -53,9 +53,12 @@ Typing a full explanation is too slow, so people skip it. Asking a chatbot "did 
 | **Developers use AI heavily, but don't trust it.** | **80%** use AI tools; only **29%** trust their accuracy (down from 40%). The top frustration, at **45%**, is *"AI solutions that are almost right, but not quite."* **75%** would still ask a person. n > 49,000. | [Stack Overflow Developer Survey 2025](https://stackoverflow.blog/2025/07/29/developers-remain-willing-but-reluctant-to-use-ai-the-2025-developer-survey-results-are-here/) |
 | **People increasingly learn to code *with* AI.** | **44%** learned new coding techniques with AI-enabled tools, up from 37% a year earlier. | Same survey |
 | **Novices hand the thinking to the AI.** | In a monitored study of 37 programming students, 23 used ChatGPT and *most of those eventually asked it to simply generate a full solution*, often looping through wrong code and "fix it" requests. | Rahe & Maalej, FSE 2025, [arXiv:2501.10091](https://arxiv.org/abs/2501.10091) |
+| **AI-written code is now the norm in Indian engineering colleges.** | IIT Delhi's own committee report (427 students, 88 faculty): nearly **81%** of students use AI tools regularly (several times a week) and **62%** use them for coding. | IIT Delhi, [*On the use of Generative AI at IIT Delhi*](https://academics.iitd.ac.in/wp-content/uploads/2025/09/IITD-AI-Guidelines.pdf) (Sept 2025) |
+| **Students mostly use chatbots to *understand* and debug code, which is where false confidence creeps in.** | Among US engineering students (n=601 in 2023, n=862 in 2024), the preferred coding uses were understanding what code does (**44%**) and debugging (**48.4%**), ahead of drafting code (26.5%). | Ovi, Fierro & Smith, [arXiv:2503.04696](https://arxiv.org/abs/2503.04696) |
+| **Universities are adding oral "code vivas" in response.** | UWE Bristol made a mandatory code viva worth **30%** of a first-year JavaScript module (about 20-30 students) and reports that in a few cases students struggled to explain work they had submitted. Its suggested next step is *low-stakes mini vivas so students can practise*, which is what Blindspot offers on demand. | Simon Emberton, [UWE Digital Learning](https://digitallearning.uwe.ac.uk/ai-proofing-assessment-through-code-vivas/) (16 Oct 2026) |
 | **The audience is huge, especially in India.** | AICTE sanctioned a record **15.98 lakh (about 1.6 million) B.Tech seats** for 2025-26, with computer science driving the rise. That is roughly 1.6 million students entering engineering every year. | [Careers360 on AICTE data](https://news.careers360.com/btech-courses-aicte-engineering-enrolment-rise-ai-computer-science-cs-job-decline-civil-mechanical-data-5-yr-high-placement-salary) |
 
-<sub>**Read these honestly.** The 2002 and 1994 studies are old and small; the AI-and-students evidence is early; the India figure counts *all* engineering branches, not just CS. Together they support a clear direction (explaining reveals gaps; AI makes it easier to skip explaining), not a proof that Blindspot works. Our own accuracy is covered under [Quality and honesty](#quality-and-honesty).</sub>
+<sub>**Read these honestly.** The 2002 and 1994 studies are old and small; the AI-and-students evidence is early; the UWE case is one module of 20-30 students and the Mines study surveyed US students, not Indian ones; the India figure counts *all* engineering branches, not just CS. Together they support a clear direction (explaining reveals gaps; AI makes it easier to skip explaining), not a proof that Blindspot works. Our own accuracy is covered under [Quality and honesty](#quality-and-honesty).</sub>
 
 **What's missing:** a fast, *spoken* way to explain code that gives honest, **line-level** feedback you can check, showing exactly where your understanding has gaps.
 
@@ -169,7 +172,18 @@ Language models flatter and invent. Blindspot is built so they can't:
 | **Speed** | Seconds | Seconds | Seconds | Needs scheduling |
 | **Cost** | Free tier friendly | Free to paid | Premium is roughly $159/year per [reviews](https://www.lodely.com/blog/leetcode-premium-cost) (sources vary) | Varies, usually the highest |
 
+**Closest research prior art: ESSE** (Lekshmi-Narayanan, Brusilovsky et al., [arXiv:2608.25180](https://arxiv.org/abs/2608.25180), 2026). It is a self-explanation tutor for introductory Java in which students *type* an explanation of **one line at a time** and get LLM feedback. Its LLM judged explanation correctness with **F1 = .91 against an expert** (precision .95, recall .87 on 358 rated attempts), which is good evidence that LLM grading of explanations is feasible. Blindspot differs in the interaction: **one continuous spoken explanation of the whole program**, aligned back onto the code as a coverage heatmap, with quotes verified against the transcript.
+
 <sub>This is a comparison by **category**. We have not benchmarked individual products, and these tools improve quickly, so treat the table as positioning, not a test result. Chat assistants *can* be prompted to critique an explanation; the difference is structure and verification.</sub>
+
+## Built for The Wispr Challenge (Builders track)
+
+Blindspot was built for **No Hands: The Wispr Challenge** (WeMakeDevs × Wispr Flow), Builders track: a working product that solves a problem in your own work. The problem here is a student's own: *I ship code with an AI assistant, then freeze when asked to explain line 23.*
+
+- **Voice is the product, not a convenience.** The skill a viva or interview tests is *spoken* explanation, so typing it would practise the wrong thing. The explanation box prompts you to hold your Wispr Flow key and talk.
+- **Wispr Flow is the input device, by design.** It types cleaned text into whichever field has focus, so Blindspot has no audio code to break and works anywhere Flow does.
+- **Hinglish is a first-class case.** Many students think through code in Hinglish; Wispr Flow dictates it and Blindspot grades it like English (see the Hinglish sample).
+- **One feature only.** No question bank, chatbot, quizzes or dashboard. You explain; it audits.
 
 ---
 
@@ -430,6 +444,10 @@ render.yaml     Render Blueprint for the backend
 - Rozenblit & Keil (2002), *The misunderstood limits of folk science: an illusion of explanatory depth*, *Cognitive Science*; summary: [Wikipedia](https://en.wikipedia.org/wiki/Illusion_of_explanatory_depth)
 - Chi, De Leeuw, Chiu & LaVancher (1994), *Eliciting self-explanations improves understanding*, *Cognitive Science*: [PDF](https://pcl.sitehost.iu.edu/rgoldsto/courses/cogscilearning/chiselfexplanation.pdf)
 - Rahe & Maalej (2025), *How Do Programming Students Use Generative AI?*, FSE 2025: [arXiv:2501.10091](https://arxiv.org/abs/2501.10091)
+- IIT Delhi, [*On the use of Generative AI at IIT Delhi*](https://academics.iitd.ac.in/wp-content/uploads/2025/09/IITD-AI-Guidelines.pdf) (Sept 2025)
+- Ovi, Fierro & Smith, *Assessing Student Adoption of Generative AI across Engineering Education from 2023 to 2024*: [arXiv:2503.04696](https://arxiv.org/abs/2503.04696)
+- Emberton, [AI-proofing assessment through code vivas](https://digitallearning.uwe.ac.uk/ai-proofing-assessment-through-code-vivas/), UWE Bristol Digital Learning, 16 Oct 2026
+- Lekshmi-Narayanan et al., *Self-Explanation Tutor for Active Study of CS1 Worked Examples* (ESSE): [arXiv:2608.25180](https://arxiv.org/abs/2608.25180)
 - Careers360, [AICTE enrolment data](https://news.careers360.com/btech-courses-aicte-engineering-enrolment-rise-ai-computer-science-cs-job-decline-civil-mechanical-data-5-yr-high-placement-salary)
 - National Student Clearinghouse, [US computer science degrees](https://studentclearinghouse.org/nscblog/?p=75844)
 - Market reports: [Marketintelo](https://marketintelo.com/report/coding-interview-preparation-market), [Business Research Company via GII](https://www.gii.tw/report/tbrc1727775-coding-bootcamp-global-market-report.html), [ResearchAndMarkets via Business Wire](https://www.businesswire.com/news/home/20251218159677/en/Trends-Strategies-Shaping-the-$14-Billion-Coding-Bootcamp-Market-2025-2032-Flexible-Curriculum-Delivery-Diverse-Payment-Structures-Adaptable-Program-Formats---ResearchAndMarkets.com)
