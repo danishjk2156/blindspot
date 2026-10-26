@@ -24,7 +24,7 @@ export function CoverageBadge({ result }: { result: AnalyzeResponse }) {
     pct >= 80 ? "bg-green-100 text-green-800" : pct >= 50 ? "bg-yellow-100 text-yellow-800" : "bg-red-100 text-red-800";
   const c = countBlocks(result);
   return (
-    <div className={`flex items-center gap-4 rounded-lg px-4 py-3 ${band}`}>
+    <div className={`flex items-center gap-4 rounded-2xl px-5 py-4 shadow-sm ${band}`}>
       <div className="text-4xl font-bold">{Math.round(pct)}%</div>
       <div className="text-sm">
         <div className="font-semibold">Coverage{result.cached ? " (cached)" : ""}</div>

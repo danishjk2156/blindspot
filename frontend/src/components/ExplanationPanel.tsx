@@ -23,7 +23,7 @@ export function ExplanationPanel({ transcript, loading, onChange, onSubmit }: Pr
   const ready = words >= MIN_WORDS;
 
   return (
-    <section className="flex flex-col rounded-lg border border-slate-200 bg-white">
+    <section className="flex flex-col rounded-2xl border border-white bg-white/90 shadow-lg shadow-indigo-100/50 backdrop-blur">
       <div className="border-b border-slate-200 px-4 py-2">
         <h2 className="font-semibold">Your explanation</h2>
       </div>
@@ -44,7 +44,7 @@ export function ExplanationPanel({ transcript, loading, onChange, onSubmit }: Pr
         <button
           onClick={onSubmit}
           disabled={loading || !ready}
-          className="inline-flex items-center gap-2 rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-indigo-300/50 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {loading && (
             <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />

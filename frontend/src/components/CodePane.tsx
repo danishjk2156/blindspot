@@ -18,7 +18,7 @@ export function CodePane({ code, language, result, onCodeChange, onLanguageChang
   const reviewing = result !== null;
 
   return (
-    <section className="flex flex-col rounded-lg border border-slate-200 bg-white">
+    <section className="flex flex-col rounded-2xl border border-white bg-white/90 shadow-lg shadow-indigo-100/50 backdrop-blur">
       <div className="flex items-center justify-between border-b border-slate-200 px-4 py-2">
         <h2 className="font-semibold">Code</h2>
         <div className="flex items-center gap-2">
