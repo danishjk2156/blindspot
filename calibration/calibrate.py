@@ -105,7 +105,7 @@ def main() -> None:
     grade = make_grader(args)
     files = sorted(Path(args.cases).glob("*.json"))
     if not files:
-        sys.exit(f"No case files in {args.cases}")
+        sys.exit(f"No case files in {args.cases}. Record and label some first: see calibration/README.md")
 
     pairs: list[tuple[str, str]] = []  # (human, predicted)
     rows, cov_err, by_kind = [], [], {"good": [], "weak": []}

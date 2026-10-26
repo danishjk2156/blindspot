@@ -89,7 +89,9 @@ python calibration/calibrate.py --local                                         
 
 Case files are `calibration/cases/<name>_<good|weak>.json` with labels keyed by line range. Targets: **>= 80 % agreement, kappa >= 0.6**.
 
-**Current numbers are from 4 seed cases labelled by the author, not an independent test:** 84.4 % agreement, kappa 0.56. Replace them with your own recorded cases (10 snippets x good/weak) before quoting a figure.
+To build the real 20-case set (10 snippets x good/weak, with a helper that labels one block per keypress), follow [`calibration/README.md`](calibration/README.md).
+
+**The only numbers so far (84.4 % agreement, kappa 0.56) come from 4 seed cases the assistant labelled while building the scripts (`calibration/seed_cases/`). That is not an independent test; replace it with your own recorded cases before quoting a figure.**
 
 ## Deploy
 
