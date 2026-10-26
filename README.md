@@ -14,7 +14,7 @@
 [![Groq](https://img.shields.io/badge/LLM-Groq-F55036)](https://groq.com)
 [![Voice](https://img.shields.io/badge/Voice-Wispr%20Flow-6D28D9)](https://wisprflow.ai)
 
-[**Problem**](#the-problem) · [**Solution**](#the-solution) · [**Impact**](#impact) · [**Why it's different**](#why-blindspot-is-different) · [**Architecture**](#architecture) · [**Tech stack**](#tech-stack) · [**Market**](#market-opportunity) · [**Run it**](#run-it-locally) · [**Deploy**](#deploy)
+[**Problem**](#the-problem) · [**Solution**](#the-solution) · [**Impact**](#impact) · [**Why it's different**](#why-blindspot-is-different) · [**Architecture**](#architecture) · [**Tech stack**](#tech-stack) · [**Market**](#market-opportunity) · [**Setup**](#setup-and-run-it-locally) · [**Deploy**](#deploy)
 
 <br />
 
@@ -344,33 +344,153 @@ sequenceDiagram
 
 ---
 
-## Run it locally
+## Setup and run it locally
 
-Prerequisites: Python 3.11+, Node 22+, and a [Groq API key](https://console.groq.com/keys).
+Blindspot is two small programs: a **Python backend** (port 8000) that does the grading, and a **React frontend** (port 5173) that you open in the browser. You run both.
+
+### Quick start (about 10 minutes)
 
 ```bash
-# backend
+git clone https://github.com/danishjk2156/blindspot.git
+cd blindspot
+```
+
+Then follow steps 1 to 4 below. When both servers are running, open **http://localhost:5173**.
+
+### 1. Prerequisites
+
+| Tool | Version | Check it | Get it |
+|---|---|---|---|
+| **Python** | 3.11 or newer | `python --version` | [python.org/downloads](https://www.python.org/downloads/) (on Windows, tick *Add python.exe to PATH*) |
+| **Node.js** (includes npm) | 20 or newer | `node --version` | [nodejs.org](https://nodejs.org) |
+| **Git** | any | `git --version` | [git-scm.com](https://git-scm.com) |
+| **Groq API key** | free | see step 2 | [console.groq.com/keys](https://console.groq.com/keys) |
+| **Wispr Flow** | optional, for voice | see [below](#6-set-up-voice-with-wispr-flow) | [wisprflow.ai](https://wisprflow.ai) |
+
+On macOS and Linux, if `python` isn't found, use `python3` everywhere below.
+
+### 2. Get a free Groq API key
+
+The grader is an LLM served by Groq's free tier, so you need a key.
+
+1. Go to [console.groq.com/keys](https://console.groq.com/keys) and sign in.
+2. Click **Create API Key**, give it any name, and copy it (it starts with `gsk_`).
+3. Keep it private. It goes only in `backend/.env`, which git ignores, and never in the frontend.
+
+### 3. Start the backend
+
+Open a terminal in the project folder, then:
+
+<details open>
+<summary><b>Windows (PowerShell)</b></summary>
+
+```powershell
 cd backend
 python -m venv .venv
-.venv/Scripts/pip install -r requirements.txt      # macOS/Linux: .venv/bin/pip
-cp .env.example .env                               # then set GROQ_API_KEY
-.venv/Scripts/python -m uvicorn app.main:app --port 8000
+.venv\Scripts\python -m pip install -r requirements.txt
+copy .env.example .env
+notepad .env
+```
+
+</details>
+
+<details>
+<summary><b>macOS / Linux (or Git Bash)</b></summary>
+
+```bash
+cd backend
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+cp .env.example .env
+nano .env
+```
+
+</details>
+
+In `.env`, paste your key after the equals sign, with no quotes and no spaces:
+
+```
+GROQ_API_KEY=gsk_your_key_here
+FRONTEND_ORIGIN=http://localhost:5173
+DEBUG=0
+```
+
+Now start the server (we call the virtualenv's Python directly, so there is nothing to "activate"):
+
+```powershell
+# Windows
+.venv\Scripts\python -m uvicorn app.main:app --reload --port 8000
 ```
 
 ```bash
-# frontend (second terminal)
-cd frontend
-npm install
-cp .env.example .env                               # VITE_API_URL=http://localhost:8000
-npm run dev                                        # http://localhost:5173
+# macOS / Linux
+.venv/bin/python -m uvicorn app.main:app --reload --port 8000
 ```
 
-Run the tests (no key needed): `cd backend && .venv/Scripts/python -m pytest`
+**Check it works:** open [http://localhost:8000/health](http://localhost:8000/health). You should see `{"ok":true}`. Interactive API docs are at [/docs](http://localhost:8000/docs). Leave this terminal running.
 
-> **Wispr Flow hotkey.** Hold the key and speak. On Windows use a combination such as **Ctrl+Win**: Wispr's docs say the Fn key isn't recognised on Windows machines ([hotkey docs](https://docs.wisprflow.ai/articles/2612050838-supported-unsupported-keyboard-hotkey-shortcuts)). On Mac, Fn works. You can also just type or paste into the box.
+### 4. Start the frontend
 
-<details>
-<summary><b>Environment variables</b></summary>
+Open a **second** terminal:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Open **[http://localhost:5173](http://localhost:5173)**. The frontend talks to `http://localhost:8000` by default. If your backend is elsewhere, copy `frontend/.env.example` to `frontend/.env` and set `VITE_API_URL`.
+
+> Port 5173 is fixed. If something else is using it, `npm run dev` will fail rather than pick another port, because the backend's CORS setting expects 5173.
+
+### 5. Use the app
+
+1. **Sign in.** Click **Continue as guest**, or create a demo account. Accounts are stored only in your browser and are not secure.
+2. **Pick code.** The binary-search sample is preloaded. Use **Samples** in the header for the Hinglish JavaScript sample, or click **Edit code** and paste your own (up to 150 lines).
+3. **Explain it.** Click into the explanation box and either dictate with Wispr Flow or just type. You need at least **20 words**; the counter turns green when you have enough.
+4. **Click "Find my blindspots".** Every line is coloured. Hover a line to see the exact words you said and the fix. The ring shows your coverage score.
+5. **Improve it.** Click **Edit code**, adjust your explanation to cover the red and grey lines, and grade again.
+
+The two built-in samples return instantly because their results are precomputed (the badge says *From cache*). Any other code or wording makes a fresh call to Groq, which takes a few seconds.
+
+### 6. Set up voice with Wispr Flow
+
+Voice is optional (typing works), but it is the point of the product.
+
+1. Install Wispr Flow from [wisprflow.ai](https://wisprflow.ai) and sign in.
+2. Find your push-to-talk shortcut in Wispr Flow's settings. It works by **holding** the key while you speak.
+3. **Windows:** Wispr's docs say the **Fn key isn't recognised on Windows machines**, so use a combination such as **Ctrl+Win** ([hotkey docs](https://docs.wisprflow.ai/articles/2612050838-supported-unsupported-keyboard-hotkey-shortcuts)). **Mac:** Fn works.
+4. Click into Blindspot's explanation box first, so it has focus, then hold the key and explain the code out loud. Wispr Flow types the cleaned-up text into the box. Hinglish works too.
+
+### 7. Run the tests and the production build
+
+```bash
+# backend tests (the LLM is mocked, so no key is needed)
+cd backend
+.venv/Scripts/python -m pytest          # macOS/Linux: .venv/bin/python -m pytest
+
+# frontend type-check and production build
+cd ../frontend
+npm run build
+npm run preview                          # serves the built app locally
+```
+
+### Troubleshooting
+
+| Symptom | Likely cause and fix |
+|---|---|
+| **"Can't reach the server. Is the backend running?"** | The backend isn't running or isn't on port 8000. Check [http://localhost:8000/health](http://localhost:8000/health). If the backend is elsewhere, set `VITE_API_URL` in `frontend/.env` and restart `npm run dev`. |
+| **CORS error in the browser console** | `FRONTEND_ORIGIN` in `backend/.env` must exactly match the page's address (scheme and port, e.g. `http://localhost:5173`, no trailing slash). Restart the backend after changing it. |
+| **"The grader is busy, try again in a few seconds."** | Groq's free tier is rate-limiting you (HTTP 429). Wait about 20 seconds and retry, or use a sample button, which is cached. Avoid grading many new snippets in a row. |
+| **Backend error mentioning `GROQ_API_KEY`, or every grading fails** | `backend/.env` is missing, the key is empty, or it has quotes or spaces. Re-copy the key and restart the backend. A key that doesn't start with `gsk_` is probably from a different provider. |
+| **`python` or `pip` not found** | Reinstall Python and tick *Add to PATH*, or use `python3` / `py` instead. |
+| **PowerShell says running scripts is disabled** | You don't need to activate the virtualenv. Use the `.venv\Scripts\python ...` commands exactly as written above. |
+| **`npm run dev` says port 5173 is in use** | Close the other Vite or dev server using it. |
+| **Wispr Flow types nothing, or into the wrong place** | Click inside the explanation box first. On Windows, use Ctrl+Win rather than Fn. Check that Flow is running and signed in. |
+| **Results look different between runs** | Expected: the grader is an LLM and coverage can move by about 10 points. The same input is cached, so repeating it gives the same answer. |
+| **"Explain a bit more" error** | The transcript is under 20 words. Say more, or type more. |
+
+### Environment variables
 
 | Where | Variable | Purpose |
 |---|---|---|
@@ -378,9 +498,7 @@ Run the tests (no key needed): `cd backend && .venv/Scripts/python -m pytest`
 | backend | `GROQ_MODEL` | optional, default `openai/gpt-oss-120b` |
 | backend | `FRONTEND_ORIGIN` | allowed CORS origin(s), comma-separated |
 | backend | `DEBUG` | `1` allows `?nocache=1` (used by calibration over the API) |
-| frontend | `VITE_API_URL` | backend base URL, set at **build** time |
-
-</details>
+| frontend | `VITE_API_URL` | backend base URL, set at **build** time (default `http://localhost:8000`) |
 
 <details>
 <summary><b>Precompute the demo samples</b></summary>
@@ -388,7 +506,23 @@ Run the tests (no key needed): `cd backend && .venv/Scripts/python -m pytest`
 The two demo samples in `frontend/src/samples.ts` are graded once (three runs, median kept) and shipped in `backend/data/samples_cache.json`, so the live demo is instant and doesn't touch the rate limit. Re-run after changing a sample or the grader prompt, and commit the result:
 
 ```bash
-cd backend && .venv/Scripts/python scripts/precompute_samples.py
+cd backend
+.venv/Scripts/python scripts/precompute_samples.py      # macOS/Linux: .venv/bin/python
+```
+
+This also needs Node installed, because the script reads the samples from the frontend's TypeScript file.
+
+</details>
+
+<details>
+<summary><b>Measure accuracy (calibration)</b></summary>
+
+Record your own explanations, label them one keypress per code block, then compare Blindspot with your labels. The full workflow is in [`calibration/README.md`](calibration/README.md); the short version:
+
+```bash
+python calibration/label.py --new two_sum good     # create and open a transcript to dictate into
+python calibration/label.py                        # label recorded transcripts
+python calibration/calibrate.py --local            # writes calibration/report.md
 ```
 
 </details>
