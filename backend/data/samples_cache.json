@@ -1,0 +1,132 @@
+{
+  "0bcf300d23503f01af56b5730858ed9009f2148e9b36843884d910a558fcf91c": {
+    "lines": [
+      {
+        "n": 1,
+        "status": "correct",
+        "quote": "This function takes a sorted list and a target value.",
+        "fix": "The function definition takes a sorted list and a target."
+      },
+      {
+        "n": 2,
+        "status": "correct",
+        "quote": "It keeps two pointers, low and high,",
+        "fix": "Initialises lo and hi to the start and end indices."
+      },
+      {
+        "n": 3,
+        "status": "correct",
+        "quote": "loops while they haven't crossed.",
+        "fix": "Loops while lo <= hi."
+      },
+      {
+        "n": 4,
+        "status": "vague",
+        "quote": "Each time it checks the middle element,",
+        "fix": "Computes mid as the integer average of lo and hi."
+      },
+      {
+        "n": 5,
+        "status": "vague",
+        "quote": "if it finds the element it returns minus one.",
+        "fix": "Checks if arr[mid] equals the target."
+      },
+      {
+        "n": 6,
+        "status": "wrong",
+        "quote": "and if it finds the element it returns minus one.",
+        "fix": "Returns the index mid when the target is found."
+      },
+      {
+        "n": 7,
+        "status": "correct",
+        "quote": "if the middle is smaller than the target it moves the low pointer up",
+        "fix": "If arr[mid] < target, set lo = mid + 1."
+      },
+      {
+        "n": 8,
+        "status": "correct",
+        "quote": "moves the low pointer up",
+        "fix": "Updates lo to mid + 1."
+      },
+      {
+        "n": 9,
+        "status": "correct",
+        "quote": "otherwise it moves the high pointer down",
+        "fix": "Else case for when arr[mid] > target."
+      },
+      {
+        "n": 10,
+        "status": "correct",
+        "quote": "moves the high pointer down",
+        "fix": "Updates hi to mid - 1."
+      },
+      {
+        "n": 11,
+        "status": "missing",
+        "quote": null,
+        "fix": "Returns -1 if the target is not found after the loop."
+      }
+    ],
+    "coverage_pct": 72.7
+  },
+  "280af141062d979a39ad949aa5401bd75c018be64a27ae4b19ca7fc10872e38c": {
+    "lines": [
+      {
+        "n": 1,
+        "status": "missing",
+        "quote": null,
+        "fix": "Defines the debounce function that takes a function and a delay and returns a wrapper."
+      },
+      {
+        "n": 2,
+        "status": "correct",
+        "quote": "jisme timer variable yaad rehta hai",
+        "fix": "Initializes a timer variable that is kept in the closure."
+      },
+      {
+        "n": 3,
+        "status": "vague",
+        "quote": "Har baar jab function call hota hai",
+        "fix": "Returns a new inner function that captures the arguments and uses the timer."
+      },
+      {
+        "n": 4,
+        "status": "vague",
+        "quote": "pehle wala timer kuch karta hai",
+        "fix": "Clears any existing timeout before setting a new one."
+      },
+      {
+        "n": 5,
+        "status": "correct",
+        "quote": "Yeh function ek timer set karta hai jo delay ke baad hi fn ko call karta hai",
+        "fix": "Sets a timeout to call fn with the original arguments after the specified delay."
+      },
+      {
+        "n": 6,
+        "status": "correct",
+        "quote": "Yeh function ek timer set karta hai jo delay ke baad hi fn ko call karta hai",
+        "fix": "Sets a timeout to call fn with the original arguments after the specified delay."
+      },
+      {
+        "n": 7,
+        "status": "correct",
+        "quote": "Yeh function ek timer set karta hai jo delay ke baad hi fn ko call karta hai",
+        "fix": "Sets a timeout to call fn with the original arguments after the specified delay."
+      },
+      {
+        "n": 8,
+        "status": "neutral",
+        "quote": null,
+        "fix": null
+      },
+      {
+        "n": 9,
+        "status": "neutral",
+        "quote": null,
+        "fix": null
+      }
+    ],
+    "coverage_pct": 60.0
+  }
+}

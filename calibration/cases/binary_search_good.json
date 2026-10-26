@@ -1,0 +1,18 @@
+{
+  "code": "def binary_search(arr, target):\n    lo, hi = 0, len(arr) - 1\n    while lo <= hi:\n        mid = (lo + hi) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            lo = mid + 1\n        else:\n            hi = mid - 1\n    return -1\n",
+  "language": "python",
+  "transcript": "This function takes a sorted list and a target value and returns the index of the target. It sets two pointers, lo at the start and hi at the last index. While lo is less than or equal to hi it computes the middle index mid as the average of lo and hi. If the element at mid equals the target it returns mid. Otherwise, if the element at mid is smaller than the target, it moves lo to mid plus one, else it moves hi to mid minus one. If the loop ends without finding the target, the function returns minus one.",
+  "labels": {
+    "1-1": "correct",
+    "2-2": "correct",
+    "3-3": "correct",
+    "4-4": "correct",
+    "5-5": "correct",
+    "6-6": "correct",
+    "7-7": "correct",
+    "8-8": "correct",
+    "9-9": "correct",
+    "10-10": "correct",
+    "11-11": "correct"
+  }
+}

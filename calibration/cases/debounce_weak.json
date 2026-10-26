@@ -1,0 +1,12 @@
+{
+  "code": "function debounce(fn, delay) {\n  let timer;\n  return function (...args) {\n    clearTimeout(timer);\n    timer = setTimeout(() => {\n      fn.apply(this, args);\n    }, delay);\n  };\n}\n",
+  "language": "javascript",
+  "transcript": "Yeh function ek timer set karta hai jo delay ke baad hi fn ko call karta hai. Andar ek closure hai jisme timer variable yaad rehta hai. Har baar jab function call hota hai toh pehle wala timer kuch karta hai, phir naya setTimeout lagta hai. Timer khatam hone par original arguments ke saath fn chal jaata hai.",
+  "labels": {
+    "1-1": "vague",
+    "2-2": "correct",
+    "3-3": "vague",
+    "4-4": "vague",
+    "5-7": "correct"
+  }
+}

@@ -1,0 +1,19 @@
+# Render Blueprint: New > Blueprint, point it at this repo.
+services:
+  - type: web
+    name: blindspot-api
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: GROQ_API_KEY
+        sync: false # paste it in the Render dashboard; never commit it
+      - key: FRONTEND_ORIGIN
+        sync: false # your Vercel URL, e.g. https://blindspot.vercel.app (comma-separate several)
+      - key: DEBUG
+        value: "0"

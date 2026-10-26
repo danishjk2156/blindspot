@@ -1,0 +1,12 @@
+{
+  "code": "function debounce(fn, delay) {\n  let timer;\n  return function (...args) {\n    clearTimeout(timer);\n    timer = setTimeout(() => {\n      fn.apply(this, args);\n    }, delay);\n  };\n}\n",
+  "language": "javascript",
+  "transcript": "Debounce takes a function fn and a delay and returns a wrapped function that only calls fn once calls stop coming for delay milliseconds. A timer variable is kept in a closure. Every time the wrapped function is called it first clears the previous timer with clearTimeout so the earlier pending call is cancelled. Then it sets a new timeout that calls fn with the original this and arguments once the delay has passed.",
+  "labels": {
+    "1-1": "correct",
+    "2-2": "correct",
+    "3-3": "correct",
+    "4-4": "correct",
+    "5-7": "correct"
+  }
+}
