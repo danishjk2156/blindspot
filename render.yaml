@@ -1,5 +1,6 @@
 # Render Blueprint: New > Blueprint, point it at this repo.
 services:
+  # ── Backend API ──────────────────────────────────────
   - type: web
     name: blindspot-api
     runtime: python
@@ -14,6 +15,26 @@ services:
       - key: GROQ_API_KEY
         sync: false # paste it in the Render dashboard; never commit it
       - key: FRONTEND_ORIGIN
-        sync: false # your Vercel URL, e.g. https://blindspot.vercel.app (comma-separate several)
+        value: https://blindspot-frontend.onrender.com
       - key: DEBUG
         value: "0"
+
+  # ── Frontend (Vite static site) ──────────────────────
+  - type: web
+    name: blindspot-frontend
+    runtime: static
+    plan: free
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: public, max-age=0, must-revalidate
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        value: https://blindspot-api.onrender.com
